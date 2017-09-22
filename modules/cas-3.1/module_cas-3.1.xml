@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_cas-3.1" default="compile.module.cas-3.1">
+  <dirname property="module.cas-3.1.basedir" file="${ant.file.module_cas-3.1}"/>
+  
+  <property name="module.jdk.home.cas-3.1" value="${jdk.home.sun_1.6}"/>
+  <property name="module.jdk.bin.cas-3.1" value="${jdk.bin.sun_1.6}"/>
+  <property name="module.jdk.classpath.cas-3.1" value="jdk.classpath.sun_1.6"/>
+  
+  <property name="compiler.args.cas-3.1" value="-encoding UTF-8 -source 1.6 -target 1.6 ${compiler.args}"/>
+  
+  <property name="cas-3.1.output.dir" value="/production/cas-3.1"/>
+  <property name="cas-3.1.testoutput.dir" value="/test/cas-3.1"/>
+  
+  <path id="cas-3.1.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="cas-3.1.module.production.classpath">
+    <path refid="${module.jdk.classpath.cas-3.1}"/>
+    <path refid="library.play-1.2.x-localbuild.classpath"/>
+    <pathelement location="${basedir}/../../../enviroment/play-1.2.5_CE/framework/lib/javax.inject-1.0.jar"/>
+    <pathelement location="${guice-1.2.output.dir}"/>
+    <path refid="library.creditease_lib.classpath"/>
+    <path refid="library.play-1.2.5_ce_lib.classpath"/>
+    <path refid="library.guice_lib.classpath"/>
+  </path>
+  
+  <path id="cas-3.1.runtime.production.module.classpath">
+    <pathelement location="${cas-3.1.output.dir}"/>
+    <path refid="library.play-1.2.x-localbuild.classpath"/>
+    <pathelement location="${basedir}/../../../enviroment/play-1.2.5_CE/framework/lib/javax.inject-1.0.jar"/>
+    <path refid="guice-1.2.runtime.production.module.classpath"/>
+    <path refid="library.creditease_lib.classpath"/>
+    <path refid="library.play-1.2.5_ce_lib.classpath"/>
+    <path refid="library.guice_lib.classpath"/>
+  </path>
+  
+  <path id="cas-3.1.module.classpath">
+    <path refid="${module.jdk.classpath.cas-3.1}"/>
+    <pathelement location="${cas-3.1.output.dir}"/>
+    <path refid="library.play-1.2.x-localbuild.classpath"/>
+    <pathelement location="${basedir}/../../../enviroment/play-1.2.5_CE/framework/lib/javax.inject-1.0.jar"/>
+    <pathelement location="${guice-1.2.testoutput.dir}"/>
+    <pathelement location="${guice-1.2.output.dir}"/>
+    <path refid="library.creditease_lib.classpath"/>
+    <path refid="library.play-1.2.5_ce_lib.classpath"/>
+    <path refid="library.guice_lib.classpath"/>
+  </path>
+  
+  <path id="cas-3.1.runtime.module.classpath">
+    <pathelement location="${cas-3.1.testoutput.dir}"/>
+    <pathelement location="${cas-3.1.output.dir}"/>
+    <path refid="library.play-1.2.x-localbuild.classpath"/>
+    <pathelement location="${basedir}/../../../enviroment/play-1.2.5_CE/framework/lib/javax.inject-1.0.jar"/>
+    <path refid="guice-1.2.runtime.module.classpath"/>
+    <path refid="library.creditease_lib.classpath"/>
+    <path refid="library.play-1.2.5_ce_lib.classpath"/>
+    <path refid="library.guice_lib.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.cas-3.1">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  <patternset id="excluded.from.module.creditease-amque">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.cas-3.1">
+    <patternset refid="excluded.from.module.cas-3.1"/>
+    <patternset refid="excluded.from.module.creditease-amque"/>
+  </patternset>
+  
+  <path id="cas-3.1.module.sourcepath">
+    <dirset dir="${module.cas-3.1.basedir}">
+      <include name="app"/>
+      <include name="src"/>
+    </dirset>
+    <dirset dir="${module.cas-3.1.basedir}/../../../../project/intellij/CreditEase-AmQue">
+      <include name="app"/>
+    </dirset>
+  </path>
+  
+  <path id="cas-3.1.module.test.sourcepath">
+    <dirset dir="${module.cas-3.1.basedir}/../../../../project/intellij/CreditEase-AmQue">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.cas-3.1" depends="compile.module.cas-3.1.production,compile.module.cas-3.1.tests" description="Compile modules cas-3.1"/>
+  
+  <target name="compile.module.cas-3.1.production" depends="register.custom.compilers,compile.module.guice-1.2" description="Compile modules cas-3.1; production classes">
+    <mkdir dir="${cas-3.1.output.dir}"/>
+    <javac2 destdir="${cas-3.1.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.cas-3.1}/javac">
+      <compilerarg line="${compiler.args.cas-3.1}"/>
+      <bootclasspath refid="cas-3.1.module.bootclasspath"/>
+      <classpath refid="cas-3.1.module.production.classpath"/>
+      <src refid="cas-3.1.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.cas-3.1"/>
+    </javac2>
+    
+    <copy todir="${cas-3.1.output.dir}">
+      <fileset dir="${module.cas-3.1.basedir}/app">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.cas-3.1.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.cas-3.1.basedir}/../../../../project/intellij/CreditEase-AmQue/app">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.cas-3.1.tests" depends="register.custom.compilers,compile.module.cas-3.1.production" description="compile modules cas-3.1; test classes" unless="skip.tests">
+    <mkdir dir="${cas-3.1.testoutput.dir}"/>
+    <javac2 destdir="${cas-3.1.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.cas-3.1}/javac">
+      <compilerarg line="${compiler.args.cas-3.1}"/>
+      <bootclasspath refid="cas-3.1.module.bootclasspath"/>
+      <classpath refid="cas-3.1.module.classpath"/>
+      <src refid="cas-3.1.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.cas-3.1"/>
+    </javac2>
+    
+    <copy todir="${cas-3.1.testoutput.dir}">
+      <fileset dir="${module.cas-3.1.basedir}/../../../../project/intellij/CreditEase-AmQue/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.cas-3.1" description="cleanup module">
+    <delete dir="${cas-3.1.output.dir}"/>
+    <delete dir="${cas-3.1.testoutput.dir}"/>
+  </target>
+</project>

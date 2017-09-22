@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_logisima-play-cas-test" default="compile.module.logisima-play-cas-test">
+  <dirname property="module.logisima-play-cas-test.basedir" file="${ant.file.module_logisima-play-cas-test}"/>
+  
+  <property name="module.jdk.home.logisima-play-cas-test" value="${jdk.home.sun_1.6}"/>
+  <property name="module.jdk.bin.logisima-play-cas-test" value="${jdk.bin.sun_1.6}"/>
+  <property name="module.jdk.classpath.logisima-play-cas-test" value="jdk.classpath.sun_1.6"/>
+  
+  <property name="compiler.args.logisima-play-cas-test" value="-encoding UTF-8 -source 1.6 -target 1.6 ${compiler.args}"/>
+  
+  <property name="logisima-play-cas-test.output.dir" value="${module.logisima-play-cas-test.basedir}/../../../../../../project/intellij/yixin/oout/production/logisima-play-cas-test"/>
+  <property name="logisima-play-cas-test.testoutput.dir" value="${module.logisima-play-cas-test.basedir}/../../../../../../project/intellij/yixin/oout/test/logisima-play-cas-test"/>
+  
+  <path id="logisima-play-cas-test.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="logisima-play-cas-test.module.production.classpath">
+    <path refid="${module.jdk.classpath.logisima-play-cas-test}"/>
+    <pathelement location="${cas-3.1.output.dir}"/>
+  </path>
+  
+  <path id="logisima-play-cas-test.runtime.production.module.classpath">
+    <pathelement location="${logisima-play-cas-test.output.dir}"/>
+    <path refid="cas-3.1.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="logisima-play-cas-test.module.classpath">
+    <path refid="${module.jdk.classpath.logisima-play-cas-test}"/>
+    <pathelement location="${logisima-play-cas-test.output.dir}"/>
+    <pathelement location="${cas-3.1.testoutput.dir}"/>
+    <pathelement location="${cas-3.1.output.dir}"/>
+  </path>
+  
+  <path id="logisima-play-cas-test.runtime.module.classpath">
+    <pathelement location="${logisima-play-cas-test.testoutput.dir}"/>
+    <pathelement location="${logisima-play-cas-test.output.dir}"/>
+    <path refid="cas-3.1.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.logisima-play-cas-test">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.logisima-play-cas-test">
+    <patternset refid="excluded.from.module.logisima-play-cas-test"/>
+  </patternset>
+  
+  <path id="logisima-play-cas-test.module.sourcepath">
+    <dirset dir="${module.logisima-play-cas-test.basedir}">
+      <include name="app"/>
+    </dirset>
+  </path>
+  
+  <path id="logisima-play-cas-test.module.test.sourcepath">
+    <dirset dir="${module.logisima-play-cas-test.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.logisima-play-cas-test" depends="compile.module.logisima-play-cas-test.production,compile.module.logisima-play-cas-test.tests" description="Compile module logisima-play-cas-test"/>
+  
+  <target name="compile.module.logisima-play-cas-test.production" depends="register.custom.compilers,compile.module.cas-3.1" description="Compile module logisima-play-cas-test; production classes">
+    <mkdir dir="${logisima-play-cas-test.output.dir}"/>
+    <javac2 destdir="${logisima-play-cas-test.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.logisima-play-cas-test}/javac">
+      <compilerarg line="${compiler.args.logisima-play-cas-test}"/>
+      <bootclasspath refid="logisima-play-cas-test.module.bootclasspath"/>
+      <classpath refid="logisima-play-cas-test.module.production.classpath"/>
+      <src refid="logisima-play-cas-test.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.logisima-play-cas-test"/>
+    </javac2>
+    
+    <copy todir="${logisima-play-cas-test.output.dir}">
+      <fileset dir="${module.logisima-play-cas-test.basedir}/app">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.logisima-play-cas-test.tests" depends="register.custom.compilers,compile.module.logisima-play-cas-test.production" description="compile module logisima-play-cas-test; test classes" unless="skip.tests">
+    <mkdir dir="${logisima-play-cas-test.testoutput.dir}"/>
+    <javac2 destdir="${logisima-play-cas-test.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.logisima-play-cas-test}/javac">
+      <compilerarg line="${compiler.args.logisima-play-cas-test}"/>
+      <bootclasspath refid="logisima-play-cas-test.module.bootclasspath"/>
+      <classpath refid="logisima-play-cas-test.module.classpath"/>
+      <src refid="logisima-play-cas-test.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.logisima-play-cas-test"/>
+    </javac2>
+    
+    <copy todir="${logisima-play-cas-test.testoutput.dir}">
+      <fileset dir="${module.logisima-play-cas-test.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.logisima-play-cas-test" description="cleanup module">
+    <delete dir="${logisima-play-cas-test.output.dir}"/>
+    <delete dir="${logisima-play-cas-test.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+    <output-test url="file://D:/project/snake/out/test/cas-3.1"/>
+    <exclude-output/>
+    <contentEntry url="file://$MODULE_DIR$"/>
+    <levels>
+<level name="logisima-play-cas" value="project"/>
+<level name="play-1.2.x-localbuild" value="project"/>
+    </levels>
+</component>

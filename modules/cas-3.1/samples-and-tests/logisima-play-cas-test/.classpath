@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="src" path="/logisima-play-cas-test/app"/>
+    <classpathentry kind="src" path="/logisima-play-cas-test/test"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/logisima-play-cas"/>
+    <classpathentry combineaccessrules="false" kind="src" path="/cas-3.1"/>
+    <classpathentry combineaccessrules="false" kind="src" path="/cas-3.1"/>
+    <classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,9 @@
+# import these default routes as :
+# *         /               module:logisima-cas
+#
+
+GET         /login          modules.cas.SecureCAS.login
+GET         /fail              modules.cas.SecureCAS.fail
+GET         /logout        modules.cas.SecureCAS.logout
+GET         /authenticate   modules.cas.SecureCAS.authenticate
+GET         /pgtcallbackurl modules.cas.SecureCAS.pgtCallBack
