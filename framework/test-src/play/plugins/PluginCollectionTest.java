@@ -44,6 +44,7 @@ public class PluginCollectionTest {
                 pc.getPluginInstance(TempFilePlugin.class),
                 pc.getPluginInstance(ValidationPlugin.class),
                 pc.getPluginInstance(DBPlugin.class),
+                pc.getPluginInstance(play.db.DBBrowserPlugin.class),
                 pc.getPluginInstance(JPAPlugin.class),
                 pc.getPluginInstance(Evolutions.class),
                 pc.getPluginInstance(MessagesPlugin.class),
