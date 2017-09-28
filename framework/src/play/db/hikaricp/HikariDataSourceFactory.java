@@ -26,7 +26,6 @@ public class HikariDataSourceFactory implements DataSourceFactory {
     ds.setJdbcUrl(dbConfig.getProperty("db.url"));
     ds.setUsername(dbConfig.getProperty("db.user"));
     ds.setPassword(dbConfig.getProperty("db.pass"));
-    ds.setAutoCommit(false);
     ds.setConnectionTimeout(parseLong(dbConfig.getProperty("db.pool.timeout", "5000")));
     ds.setMaximumPoolSize(parseInt(dbConfig.getProperty("db.pool.maxSize", "30")));
     ds.setMinimumIdle(parseInt(dbConfig.getProperty("db.pool.minSize", "1")));
